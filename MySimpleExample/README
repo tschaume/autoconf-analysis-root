@@ -1,0 +1,46 @@
+==========================
+how I set up this example:
+==========================
+
+top_src folder: MySimpleExample/
+mk folders: src,docs,bin,pics,out
+cp hsimple.C from $ROOTSYS/tutorials to src/hSimple.cc
+cp Makefile.am to ./
+cp configure.ac to ./
+cp Doxyfile.in to docs/
+
+modify hSimple.cc to standalone compiled program (I/O stuff, save pic)
+add bin directory to $PATH in bashrc or bash_profile
+---------------------------------------------------
+autoreconf -v --force --install
+./configure
+make
+---------------------------------------------------
+
+add extra dist. package stuff to Makefile.am (omit latex and man-pages for now)
+add doxygen to Makefile.am (omit copy_files and latex for now)
+add comments to hSimple.cc (class,brief,par,image,param,html-tags,formula)
+modify docs/Doxyfile.in (l.2-6, l.99, l.142, l.176, logo)
+html-doc generated
+
+main html page: src/mainpage.cc (note, toc)
+man-pages automatically generated -> include docs/man dir in $MANPATH & Makefile.am
+
+include latex in Makefile.am (all-local)
+cp refman_mod.tex & Makefile_mod to docs/
+modify refman_mod.tex (Documenation section & name)
+cp update_texfile.sh to docs/ (no mods needed)
+no mods needed in Makefile_mod
+---------------------------------------------------
+MAKE PDF:
+cd docs/latex/
+// . ../update_texfile.sh done automatically in next step
+make -f Makefile_mod
+---------------------------------------------------
+include latex picture in hSimple.cc comments (width)
+
+make dist
+modify EXTRA_DIST in Makefile.am (Makefile.am and configure.ac not needed for only distributing the code)
+
+
+
